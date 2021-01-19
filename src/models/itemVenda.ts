@@ -43,7 +43,8 @@ class ItemVenda {
     @Column('decimal')
     ordem: number;
 
-
+    @Column('boolean')
+    isAtivado: boolean;
 
     @Column()
     id_produtos: number;
@@ -51,8 +52,7 @@ class ItemVenda {
     @CreateDateColumn()
     created_at: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+
 
 
 }

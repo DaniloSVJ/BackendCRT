@@ -2,7 +2,7 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
+
     CreateDateColumn,
     OneToMany,
     // ManyToMany,
@@ -17,20 +17,14 @@ import Produto from './produtos';
  * Muitos para Muitos (ManyToMany)
  */
 
-@Entity('grupo_produtos')
+@Entity('idCli_idCaixa')
 class GrupoProdutos {
-
     @PrimaryGeneratedColumn()
-    id: number;
+    idCliente: number;
 
     @Column()
-    nome: string;
+    idcaixa: number;
 
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
 
 
 }

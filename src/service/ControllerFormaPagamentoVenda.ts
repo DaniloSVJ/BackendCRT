@@ -5,13 +5,17 @@ import AppError from '../error/AppErro'
 import FormaPagamentoVenda from '../models/formaPagamentoVenda'
 
 class FormaPagamentoController {
-    public async execute(id_venda: number, valor: number, id_forma_pagmet: number): Promise<FormaPagamentoVenda> {
+
+    public async execute(id_venda: number, valor: number, id_forma_pagmet: number,ordem:number,formapagamento:string,status:boolean): Promise<FormaPagamentoVenda> {
         const formaPagamento = getRepository(FormaPagamentoVenda);
 
         const formPayVenda = await formaPagamento.create({
-            id_forma_pagmet,
             id_venda,
-            valor
+            valor,
+            id_forma_pagmet,
+            ordem,
+            formapagamento,
+            status
 
         })
 
@@ -44,7 +48,7 @@ class FormaPagamentoController {
 
         await formaPagamento.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) })
+            .where({ id: Number(id) , status:false})
             .execute()
 
     }
@@ -54,6 +58,18 @@ class FormaPagamentoController {
 
         const pagamento = await formaPagamento.find()
         return pagamento
+    }
+
+    public async getAllStatus() {
+
+        const formaPagamento = await getRepository(FormaPagamentoVenda)
+
+        const pagamento = await formaPagamento
+        .createQueryBuilder()
+        .where({ status: false })
+        .getMany();
+
+       return pagamento
     }
     public async get(id: string) {
 

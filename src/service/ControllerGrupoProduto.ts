@@ -26,9 +26,9 @@ class CreateGrupoProduto {
 
 
     }
-    public async update(id: number, nome: string) {
+    public async update(id: string, nome: string) {
         const repositoryGrupoProduto = getRepository(GrupoProduto)
-        const checkNameGrup = await repositoryGrupoProduto.findOne({ where: { id } })
+        const checkNameGrup = await repositoryGrupoProduto.findOne({ where: { id: Number(id) } })
         let grupo
 
         if (checkNameGrup) {

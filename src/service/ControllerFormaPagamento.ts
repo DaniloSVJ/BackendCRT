@@ -13,11 +13,24 @@ class FormaPagamentoController {
         })
 
         if (checkNameGrup) {
+
             throw new AppError('Name grupo already used')
+        }
+        let ordem = 0
+        const { count } = await formaPagamento.createQueryBuilder()
+            .select("Count(nome)", "count")
+            .getRawOne()
+
+        console.log("O tamanho é : " + count)
+        if (Number(count) === 0) {
+            ordem = 1;
+        } else if (Number(count) > 0) {
+            ordem = Number(count) + 1;
         }
 
         const grupoProduto = await formaPagamento.create({
             nome,
+            ordem
         })
 
         await formaPagamento.save(grupoProduto)
@@ -63,9 +76,18 @@ class FormaPagamentoController {
     public async get(id: string) {
 
         const formaPagamento = await getRepository(FormaPagamento)
+        let nomeTexto
+        const pagamento = await formaPagamento.findOne({ where: { ordem: Number(id) } })
+        if (pagamento) {
+            nomeTexto = pagamento.nome
+        }
+        // nomeTexto  = await formaPagamento
+        // .createQueryBuilder()
+        // .select("nome")
+        // .where({ id })
+        // .getOne();
 
-        const pagamento = await formaPagamento.findOne({ where: { id: Number(id) } })
-        return pagamento
+        return nomeTexto
     }
 
 }

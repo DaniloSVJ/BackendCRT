@@ -6,18 +6,18 @@ import {
     CreateDateColumn,
     OneToOne,
     JoinColumn,
-  } from 'typeorm';
+} from 'typeorm';
 
-  import Venda from './vendas';
+import Venda from './vendas';
 
-  import FormOfPayment from './grupoProdutos';
-  /**
-   * Um para Um (OneToOne)
-   * Um para Muitos (OneToMany)
-   * Muitos para Muitos (ManyToMany)
-   */
-  @Entity('forma_pagamento_venda')
-  class Forma_pagamento_venda {
+import FormOfPayment from './grupoProdutos';
+/**
+ * Um para Um (OneToOne)
+ * Um para Muitos (OneToMany)
+ * Muitos para Muitos (ManyToMany)
+ */
+@Entity('forma_pagamento_venda')
+class Forma_pagamento_venda {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -30,12 +30,17 @@ import {
     @Column()
     id_forma_pagmet: number;
 
-    @OneToOne(()=> Venda)
-    @JoinColumn({name:'id_vendas'} )
-    venda: Venda;
+    @Column('decimal')
+    ordem: number;
 
-    @OneToOne(()=> Venda)
-    @JoinColumn({name:'id_forma_pagmet'} )
+    @Column('boolean')
+    status: boolean;
+
+    @Column()
+    formapagamento: string;
+
+    @OneToOne(() => Venda)
+    @JoinColumn({ name: 'id_forma_pagmet' })
     FormOfPayment: FormOfPayment;
 
     @CreateDateColumn()
@@ -44,8 +49,8 @@ import {
     @UpdateDateColumn()
     updated_at: Date;
 
-  //  @OneToOne(() => User) // Many appointments to a user
-   // @JoinColumn({ name: 'provider_id' }) // The column that will identify the provider
+    //  @OneToOne(() => User) // Many appointments to a user
+    // @JoinColumn({ name: 'provider_id' }) // The column that will identify the provider
     //provider: User;
 
     // @Column('timestamp with time zone')
@@ -56,5 +61,5 @@ import {
 
     // @UpdateDateColumn()
     // updated_at: Date;
-  }
-  export default Forma_pagamento_venda;
+}
+export default Forma_pagamento_venda;

@@ -5,7 +5,7 @@ const ItemvendaRoutes = Router()
 
 ItemvendaRoutes.post('/', async (request, response) => {
 
-    const { id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido, status } = request.body
+    const { id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido, status,isAtivado } = request.body
 
     const createVenda = new ControllerItemVendas();
 
@@ -18,7 +18,8 @@ ItemvendaRoutes.post('/', async (request, response) => {
         id_produtos,
         qtdvendido,
         valor_vendido,
-        status
+        status,
+        isAtivado
     })
 
     return response.json(venda)

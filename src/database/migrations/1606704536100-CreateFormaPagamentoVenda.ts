@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner,Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterface {
 
@@ -7,27 +7,39 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
             new Table(
                 {
                     name: 'forma_pagamento_venda',
-                    columns:[
+                    columns: [
                         {
                             name: 'id',
                             type: 'int',
-                            isPrimary:true,
+                            isPrimary: true,
                             isGenerated: true
 
                         },
                         {
-                            name:'valor',
+                            name: 'valor',
                             type: 'decimal',
                             precision: 10,
                             scale: 2,
                         },
                         {
-                            name:'id_venda',
-                            type:'int',
+                            name: 'id_venda',
+                            type: 'int',
                         },
                         {
-                            name:'id_forma_pagmet',
-                            type:'int',
+                            name: 'id_forma_pagmet',
+                            type: 'int',
+                        },
+                        {
+                            name: 'ordem',
+                            type: 'int',
+                        },
+                        {
+                            name: 'formapagamento',
+                            type: 'varchar',
+                        },
+                        {
+                            name: 'status',
+                            type: 'boolean',
                         },
                         {
                             name: 'created_at',
@@ -43,15 +55,7 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
 
                     ],
                     foreignKeys: [
-                        {
-                            name: 'foreignKeyV',
-                            referencedTableName: 'vendas',
-                            referencedColumnNames: ['id'],
-                            columnNames:['id_venda'],
-                            onDelete: 'SET NULL',
-                            onUpdate: 'CASCADE',
 
-                        },
                         {
 
                             name: 'foreignKeyForma',
@@ -69,9 +73,9 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await  queryRunner.dropForeignKey("forma_pagamento_venda","foreignKeyV");
-        await  queryRunner.dropForeignKey("forma_pagamento_venda","foreignKeyForma");
+        await queryRunner.dropForeignKey("forma_pagamento_venda", "foreignKeyV");
+        await queryRunner.dropForeignKey("forma_pagamento_venda", "foreignKeyForma");
         await queryRunner.dropTable('forma_pagamento');
     }
 
-    }
+}

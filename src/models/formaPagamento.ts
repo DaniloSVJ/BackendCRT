@@ -7,22 +7,25 @@ import {
     OneToMany,
     ManyToMany,
     JoinColumn,
-  } from 'typeorm';
+} from 'typeorm';
 
 
-  /**
-   * Um para Um (OneToOne)
-   * Um para Muitos (OneToMany)
-   * Muitos para Muitos (ManyToMany)
-   */
+/**
+ * Um para Um (OneToOne)
+ * Um para Muitos (OneToMany)
+ * Muitos para Muitos (ManyToMany)
+ */
 
-  @Entity('forma_pagamento')
-  class FormaPagamento {
+@Entity('forma_pagamento')
+class FormaPagamento {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     nome: string;
+
+    @Column()
+    ordem: number;
 
     @CreateDateColumn()
     created_at: Date;
@@ -31,5 +34,5 @@ import {
     updated_at: Date;
 
 
-  }
-  export default FormaPagamento;
+}
+export default FormaPagamento;

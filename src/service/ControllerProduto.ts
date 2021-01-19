@@ -40,7 +40,7 @@ class CreateProduto {
         await produdoRepository.save(produto)
         return produto;
     }
-    public async update(id: number, nome: string, codigo: string, custo: number, valor_venda: number, id_grupo: number) {
+    public async update(id: string, nome: string, codigo: string, custo: number, valor_venda: number, id_grupo: number) {
         const repositoryProduto = getRepository(Produto)
         let checkProduto = await repositoryProduto.findOne({ where: { id } })
         let produto

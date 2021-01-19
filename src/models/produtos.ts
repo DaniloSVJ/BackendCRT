@@ -42,29 +42,12 @@ class Produtos {
     @OneToOne(() => Grupo) // Many Produtoss to a user
     @JoinColumn({ name: 'id_grupo' })
     grupo: Grupo
-    // @ManyToOne(() => GrupoProduto, grupo=> grupo.produto, { eager: true })
-    // @JoinColumn({ name: 'id_grupo' })
-    // grupo: GrupoProduto;
-
-    // @ManyToOne(() => Estoque, estoque=> estoque.id, { eager: true })
-    // estoque: Estoque;
 
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
     updated_at: Date;
-    //  @OneToOne(() => User) // Many Produtoss to a user
-    // @JoinColumn({ name: 'provider_id' }) // The column that will identify the provider
-    //provider: User;
 
-    // @Column('timestamp with time zone')
-    // date: Date;
-
-    // @CreateDateColumn()
-    // created_at: Date;
-
-    // @UpdateDateColumn()
-    // updated_at: Date;
 }
 export default Produtos;

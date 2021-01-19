@@ -2,16 +2,13 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
     CreateDateColumn,
+    UpdateDateColumn,
 
-    //ManyToOne,
     JoinColumn,
 } from 'typeorm';
 
 // import User from './user';
-
-
 /**
  * Um para Um (OneToOne)
  * Um para Muitos (OneToMany)

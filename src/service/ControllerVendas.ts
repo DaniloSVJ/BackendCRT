@@ -67,5 +67,7 @@ class ContreollerVenda {
 
 
 
+
+
 }
 export default ContreollerVenda
