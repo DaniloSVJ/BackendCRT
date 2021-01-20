@@ -48,6 +48,7 @@ formPagamentoVendaRoutes.get('/:id', async (request, response) => {
 
 })
 
+
 formPagamentoVendaRoutes.get('/', async (request, response) => {
 
 
@@ -58,6 +59,18 @@ formPagamentoVendaRoutes.get('/', async (request, response) => {
 
 
 })
+
+formPagamentoVendaRoutes.get('/soma/:id', async (request, response) => {
+
+    const { id } = request.params
+    const forma = new FormaPagamentoVenda();
+    const total = await forma.soma(id)
+
+    return response.json(total)
+
+
+})
+
 
 
 

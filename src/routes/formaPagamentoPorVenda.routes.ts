@@ -1,4 +1,4 @@
-import { response, Router} from "express"
+import { response, Router } from "express"
 import FormaPagamentoVenda from '../service/ControllerFormaPagamentoPorVenda'
 
 const formPagamentoVendaRoutes = Router()
@@ -15,21 +15,21 @@ const formPagamentoVendaRoutes = Router()
 
 // })
 
-formPagamentoVendaRoutes.put('/:id',async (request,response)=>{
+formPagamentoVendaRoutes.put('/:id', async (request, response) => {
 
-    const{id} = request.params
-    const{id_venda,status} = request.body
+    const { id } = request.params
+    const { id_venda, status } = request.body
     const formapagamento = new FormaPagamentoVenda();
-    const formpayup = await formapagamento.update(id,id_venda,status)
+    const formpayup = await formapagamento.update(id, id_venda, status)
 
     return response.json(formpayup)
 
 
 })
 
-formPagamentoVendaRoutes.delete('/:id',async (request,response)=>{
+formPagamentoVendaRoutes.delete('/:id', async (request, response) => {
 
-    const{id} = request.params
+    const { id } = request.params
     const formapagamento = new FormaPagamentoVenda();
     await formapagamento.delete(id)
 
@@ -37,6 +37,7 @@ formPagamentoVendaRoutes.delete('/:id',async (request,response)=>{
 
 
 })
+
 // formPagamentoVendaRoutes.get('/:id',async (request,response)=>{
 
 //     const{id} = request.params

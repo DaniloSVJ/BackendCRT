@@ -73,6 +73,7 @@ class FormaPagamentoController {
         const pagamento = await formaPagamento.find()
         return pagamento
     }
+
     public async get(id: string) {
 
         const formaPagamento = await getRepository(FormaPagamento)
@@ -89,6 +90,7 @@ class FormaPagamentoController {
 
         return nomeTexto
     }
+
 
 }
 export default FormaPagamentoController

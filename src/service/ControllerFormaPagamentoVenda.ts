@@ -4,9 +4,9 @@ import AppError from '../error/AppErro'
 
 import FormaPagamentoVenda from '../models/formaPagamentoVenda'
 
-class FormaPagamentoController {
+class FormaPagamentoControllerVenda {
 
-    public async execute(id_venda: number, valor: number, id_forma_pagmet: number,ordem:number,formapagamento:string,status:boolean): Promise<FormaPagamentoVenda> {
+    public async execute(id_venda: number, valor: number, id_forma_pagmet: number, ordem: number, formapagamento: string, status: boolean): Promise<FormaPagamentoVenda> {
         const formaPagamento = getRepository(FormaPagamentoVenda);
 
         const formPayVenda = await formaPagamento.create({
@@ -48,7 +48,7 @@ class FormaPagamentoController {
 
         await formaPagamento.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) , status:false})
+            .where({ id: Number(id), status: false })
             .execute()
 
     }
@@ -65,11 +65,11 @@ class FormaPagamentoController {
         const formaPagamento = await getRepository(FormaPagamentoVenda)
 
         const pagamento = await formaPagamento
-        .createQueryBuilder()
-        .where({ status: false })
-        .getMany();
+            .createQueryBuilder()
+            .where({ status: false })
+            .getMany();
 
-       return pagamento
+        return pagamento
     }
     public async get(id: string) {
 
@@ -79,5 +79,17 @@ class FormaPagamentoController {
         return pagamento
     }
 
+    public async soma(id: string) {
+        const somaPorVenda = getRepository(FormaPagamentoVenda)
+
+        const { sum } = await somaPorVenda.createQueryBuilder()
+            .select("SUM(valor)", "sum")
+            .where({ status: false, id_venda: Number(id) })
+            .getRawOne();
+
+        const total = Number(sum)
+        return total
+    }
+
 }
-export default FormaPagamentoController
+export default FormaPagamentoControllerVenda
