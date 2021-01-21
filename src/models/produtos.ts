@@ -34,6 +34,25 @@ class Produtos {
     custo: number;
 
     @Column('decimal')
+    estoqueMin: number;
+
+    @Column('decimal')
+    estoqueMax: number;
+
+    @Column('')
+    embalagem: string;
+
+    @Column('decimal')
+    quantidade: number;
+
+    @Column('')
+    descricaoR: string;
+
+    @Column('')
+    descricaoGeral: string;
+
+
+    @Column('decimal')
     valor_venda: number;
 
     @Column()

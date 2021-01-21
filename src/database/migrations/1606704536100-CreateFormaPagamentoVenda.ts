@@ -43,12 +43,12 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
                         },
                         {
                             name: 'created_at',
-                            type: 'timestamp',
+                            type: 'timestamp with time zone',
                             default: 'now()',
                         },
                         {
                             name: 'updated_at',
-                            type: 'timestamp',
+                            type: 'timestamp with time zone',
                             default: 'now()',
                         },
 

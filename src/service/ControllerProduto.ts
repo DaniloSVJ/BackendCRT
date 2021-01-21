@@ -13,12 +13,18 @@ interface Request {
     custo: number,
     valor_venda: number,
     id_grupo: number
+    estoqueMin: number,
+    estoqueMax: number,
+    embalagem: string,
+    quantidade: number,
+    descricaoR: string,
+    descricaoGeral: string
 
 }
 
 
 class CreateProduto {
-    public async execute({ nome, codigo, custo, valor_venda, id_grupo }: Request): Promise<Produto> {
+    public async execute({ nome, codigo, custo, valor_venda, id_grupo, estoqueMin, estoqueMax, embalagem, quantidade, descricaoR, descricaoGeral }: Request): Promise<Produto> {
         const produdoRepository = getRepository(Produto)
         const checkProdutoExist = await produdoRepository.findOne({
             where: { nome }
@@ -33,7 +39,13 @@ class CreateProduto {
             codigo,
             custo,
             valor_venda,
-            id_grupo
+            id_grupo,
+            estoqueMin,
+            estoqueMax,
+            embalagem,
+            quantidade,
+            descricaoR,
+            descricaoGeral
 
         })
 

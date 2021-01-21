@@ -39,12 +39,12 @@ export class CreateFormaItemVenda1606704553170 implements MigrationInterface {
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
                     },
                     {
@@ -60,6 +60,11 @@ export class CreateFormaItemVenda1606704553170 implements MigrationInterface {
                     {
                         name: 'status',
                         type: 'decimal',
+                    },
+                    {
+                        name: 'isAtivado',
+                        type: 'boolean',
+                        isNullable: true,
                     }
 
                 ],

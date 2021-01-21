@@ -1,29 +1,25 @@
-import { query } from "express";
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class FormaPagamento1606147649112 implements MigrationInterface {
+export class GrupoPordutoGeral1611249012843 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.createTable(
             new Table({
-                name: 'forma_pagamento',
+
+                name: 'grupo_geral_produto',
                 columns: [
                     {
                         name: 'id',
                         type: 'int',
                         isPrimary: true,
                         isGenerated: true
-
                     },
                     {
                         name: 'nome',
                         type: 'varchar'
                     },
-                    {
-                        name: 'ordem',
-                        type: 'int',
-                        isNullable: true,
-                    },
+
                     {
                         name: 'created_at',
                         type: 'timestamp with time zone',
@@ -35,13 +31,15 @@ export class FormaPagamento1606147649112 implements MigrationInterface {
                         default: 'now()',
                     },
 
+
+
                 ]
             })
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('forma_pagamento');
+        await queryRunner.dropTable('grupo_produtos');
     }
 
 }

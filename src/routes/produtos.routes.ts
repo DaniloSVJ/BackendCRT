@@ -1,16 +1,16 @@
-import { response, Router} from "express"
+import { response, Router } from "express"
 import ControllerProduto from '../service/ControllerProduto'
-import AddProdutoEstoque from  '../service/ControllerProdutoEstoque'
+import AddProdutoEstoque from '../service/ControllerProdutoEstoque'
 import multer from 'multer'
 import uploadConfig from "../config/upload"
 
 const produtoRoutes = Router()
 const produtoRoutesEestoqueAdd = Router()
-const produtoRoutesEestoqueRemove =Router()
+const produtoRoutesEestoqueRemove = Router()
 const upload = multer(uploadConfig)
 
 
-produtoRoutes.get('/',async (request,response)=>{
+produtoRoutes.get('/', async (request, response) => {
     const getProdutos = new ControllerProduto();
 
     const produto = await getProdutos.getAll()
@@ -22,30 +22,30 @@ produtoRoutes.get('/',async (request,response)=>{
     return response.json(produto)
 })
 
-produtoRoutes.get('/:id',async (request,response)=>{
-    const {id} = request.params
-    const {nome,codigo} = request.body
+produtoRoutes.get('/:id', async (request, response) => {
+    const { id } = request.params
+    const { nome, codigo } = request.body
     const getProdutos = new ControllerProduto();
 
     const produto = await getProdutos.get(id)
 
     return response.json(produto)
 })
-produtoRoutes.put('/:id',async (request,response)=>{
-    const {id} = request.params
-    const {nome, codigo, custo, valor_venda ,id_grupo} = request.body
+produtoRoutes.put('/:id', async (request, response) => {
+    const { id } = request.params
+    const { nome, codigo, custo, valor_venda, id_grupo } = request.body
     const updateProdutos = new ControllerProduto();
 
-    const produto = await updateProdutos.update(id,nome, codigo, custo, valor_venda ,id_grupo)
+    const produto = await updateProdutos.update(id, nome, codigo, custo, valor_venda, id_grupo)
     //const  = produto
     //delete user.email
 
     return response.json(produto)
 })
 
-produtoRoutes.delete('/:id',async (request,response)=>{
+produtoRoutes.delete('/:id', async (request, response) => {
 
-    const {id} = request.params
+    const { id } = request.params
 
     const deleteProdutos = new ControllerProduto();
 
@@ -55,9 +55,9 @@ produtoRoutes.delete('/:id',async (request,response)=>{
 
 })
 
-produtoRoutes.post('/', async (request,response)=>{
+produtoRoutes.post('/', async (request, response) => {
 
-    const{nome,codigo,custo,valor_venda,id_grupo,imagem} = request.body
+    const { nome, codigo, custo, valor_venda, id_grupo, estoqueMin, estoqueMax, embalagem, quantidade, descricaoR, descricaoGeral } = request.body
 
     const createProduto = new ControllerProduto();
 
@@ -67,7 +67,13 @@ produtoRoutes.post('/', async (request,response)=>{
         codigo,
         custo,
         valor_venda,
-        id_grupo
+        id_grupo,
+        estoqueMin,
+        estoqueMax,
+        embalagem,
+        quantidade,
+        descricaoR,
+        descricaoGeral
 
     })
 
@@ -77,13 +83,13 @@ produtoRoutes.post('/', async (request,response)=>{
 
     //const addEstoque = await addProdtudoEstoque.aumentar(produto.id)
 
-    return response.json({produto})//,addEstoque})
+    return response.json({ produto })//,addEstoque})
 
 
 })
-produtoRoutesEestoqueAdd.put('/', async (request,response)=>{
+produtoRoutesEestoqueAdd.put('/', async (request, response) => {
 
-    const{id} = request.body
+    const { id } = request.body
 
     const addProdtudoEstoque = new AddProdutoEstoque();
 
@@ -94,9 +100,9 @@ produtoRoutesEestoqueAdd.put('/', async (request,response)=>{
     return response.json(produto)
 })
 
-produtoRoutesEestoqueRemove.put('/', async (request,response)=>{
+produtoRoutesEestoqueRemove.put('/', async (request, response) => {
 
-    const{id} = request.body
+    const { id } = request.body
 
     const addProdtudoEstoque = new AddProdutoEstoque();
 
@@ -107,4 +113,4 @@ produtoRoutesEestoqueRemove.put('/', async (request,response)=>{
     return response.json(produto)
 })
 
-export default ({produtoRoutes,produtoRoutesEestoqueAdd,produtoRoutesEestoqueRemove});
+export default ({ produtoRoutes, produtoRoutesEestoqueAdd, produtoRoutesEestoqueRemove });

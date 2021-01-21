@@ -1,32 +1,32 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateVenda1606704044230 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name:'vendas',
-                columns:[
+                name: 'vendas',
+                columns: [
                     {
                         name: 'id',
                         type: 'int',
-                        isPrimary:true,
+                        isPrimary: true,
                         isGenerated: true
                     },
                     {
                         name: 'date',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
 
                     },
 
                     {
-                        name:'funcionario',
+                        name: 'funcionario',
                         type: 'varchar',
                     },
 
                     {
-                        name:'id_cliente',
+                        name: 'id_cliente',
                         type: 'int',
 
                     },
@@ -49,9 +49,9 @@ export class CreateVenda1606704044230 implements MigrationInterface {
                 foreignKeys: [
                     {
                         name: 'foreignKeyCli',
-                        columnNames:["id_cliente"],
-                        referencedColumnNames:['id'],
-                        referencedTableName:"clients",
+                        columnNames: ["id_cliente"],
+                        referencedColumnNames: ['id'],
+                        referencedTableName: "clients",
 
 
                         onDelete: 'SET NULL',
@@ -63,7 +63,7 @@ export class CreateVenda1606704044230 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey("vendas","foreignKeyCli");
+        await queryRunner.dropForeignKey("vendas", "foreignKeyCli");
         await queryRunner.dropTable('vendas');
     }
 

@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateEstoquePro1606704110765 implements MigrationInterface {
 
@@ -6,29 +6,29 @@ export class CreateEstoquePro1606704110765 implements MigrationInterface {
         await queryRunner.createTable(
             new Table({
                 name: 'estoque',
-                columns:[
+                columns: [
                     {
-                        name:'id',
+                        name: 'id',
                         type: 'int',
                     },
                     {
-                        name:'quantidade',
-                        type:'decimal',
+                        name: 'quantidade',
+                        type: 'decimal',
                         precision: 10,
                         scale: 2,
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
                     },
                 ],
-                foreignKeys:[
+                foreignKeys: [
                     {
                         name: 'foreignKeygrup',
                         referencedTableName: 'produtos',
@@ -46,7 +46,7 @@ export class CreateEstoquePro1606704110765 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('estoque','foreignKeygrup')
+        await queryRunner.dropForeignKey('estoque', 'foreignKeygrup')
         await queryRunner.dropTable('estoque')
     }
 

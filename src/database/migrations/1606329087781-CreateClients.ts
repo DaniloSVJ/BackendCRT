@@ -1,23 +1,23 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export default class CreateClients1606329087781
 
-implements MigrationInterface {
+    implements MigrationInterface {
 
-    public  async up(queryRunner: QueryRunner): Promise<void> {
+    public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
-                new Table({
-                name:'clients',
+            new Table({
+                name: 'clients',
                 columns: [
                     {
                         name: 'id',
                         type: 'int',
-                        isPrimary:true,
+                        isPrimary: true,
                         isGenerated: true
 
                     },
                     {
-                        name:"nome",
+                        name: "nome",
                         type: 'varchar',
 
                     },
@@ -26,7 +26,7 @@ implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name:'cep',
+                        name: 'cep',
                         type: 'varchar'
                     },
                     {
@@ -37,7 +37,7 @@ implements MigrationInterface {
                     },
                     {
                         name: 'uf',
-                        type:'varchar'
+                        type: 'varchar'
                     },
                     {
                         name: 'telefone',
@@ -52,13 +52,18 @@ implements MigrationInterface {
                         type: 'varchar'
                     },
                     {
+                        name: 'isAtivado',
+                        type: 'boolean',
+                        isNullable: true,
+                    },
+                    {
                         name: 'created_at',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp',
+                        type: 'timestamp with time zone',
                         default: 'now()',
                     },
 
