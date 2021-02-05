@@ -24,6 +24,8 @@
     "ts-node-dev": "^1.0.0-pre.65"
   },
   "dependencies": {
+    "-": "0.0.1",
+    "@mysql/xdevapi": "^8.0.23",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.9",
     "@types/date-fns": "^2.6.0",
@@ -33,10 +35,11 @@
     "date-fns": "^2.16.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.29",
+    "salve": "^9.1.2",
+    "typeorm": "^0.2.30",
     "typescript": "^4.0.3",
     "typescript@4.1.0-dev": "20200809",
     "uuidv4": "^6.2.4"

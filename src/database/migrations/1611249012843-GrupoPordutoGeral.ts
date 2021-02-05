@@ -7,39 +7,38 @@ export class GrupoPordutoGeral1611249012843 implements MigrationInterface {
         await queryRunner.createTable(
             new Table({
 
-                name: 'grupo_geral_produto',
+                name: 'grupoproduto',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'grupoproid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
+
                     },
                     {
-                        name: 'nome',
+                        name: 'grupopronome',
                         type: 'varchar'
                     },
 
                     {
                         name: 'created_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
-
-
-
                 ]
             })
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('grupo_produtos');
+        await queryRunner.dropTable('grupoproduto');
     }
 
 }

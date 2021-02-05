@@ -1,5 +1,5 @@
 import { response, Router } from "express"
-import GrupoProduto from '../service/GrupoProduto/GrupoProdutoController'
+import GrupoProduto from '../service/SubGrupoProduto/ControllerSubGrupoProduto'
 //import UpdateProdutoImagemService from '../service/UpdateProdutoImagemService'
 import multer from 'multer'
 import uploadConfig from "../config/upload"
@@ -7,11 +7,11 @@ const grupoProdutoRoutes = Router()
 
 grupoProdutoRoutes.post('/', async (request, response) => {
 
-    const { nome } = request.body
+    const { nome, idgrupo } = request.body
 
     const createGrupoProduto = new GrupoProduto();
 
-    const grupo = await createGrupoProduto.execute(nome)
+    const grupo = await createGrupoProduto.execute(nome, idgrupo)
 
     return response.json(grupo)
 
@@ -20,9 +20,9 @@ grupoProdutoRoutes.post('/', async (request, response) => {
 grupoProdutoRoutes.put('/:id', async (request, response) => {
 
     const { id } = request.params
-    const { nome } = request.body
+    const { nome, idgrupo } = request.body
     const updateGrupoProduto = new GrupoProduto();
-    const grupo = await updateGrupoProduto.update(id, nome)
+    const grupo = await updateGrupoProduto.update(id, nome, idgrupo)
 
     return response.json(grupo)
 

@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import FormaPagamentoVenda from '../models/formaPagamentoVenda'
+import FormaPagamentoVenda from '../../models/formaPagamentoVenda'
 
 class FormaPagamentoControllerVenda {
 
@@ -10,12 +10,12 @@ class FormaPagamentoControllerVenda {
         const formaPagamento = getRepository(FormaPagamentoVenda);
 
         const formPayVenda = await formaPagamento.create({
-            id_venda,
-            valor,
-            id_forma_pagmet,
-            ordem,
-            formapagamento,
-            status
+            fpvidvenda: id_venda,
+            fpvvalor: valor,
+            fpvidforpag: id_forma_pagmet,
+            fpvordem: ordem,
+            fpvformapagamento: formapagamento,
+            fpvstatus: status
 
         })
 
@@ -27,15 +27,15 @@ class FormaPagamentoControllerVenda {
     }
     public async update(id: string, valor: number) {
         const repositoryFormaPagamento = getRepository(FormaPagamentoVenda)
-        const checkFormPay = await repositoryFormaPagamento.findOne({ where: { id } })
+        const checkFormPay = await repositoryFormaPagamento.findOne({ where: { fpvid: id } })
         let formpay
 
         if (checkFormPay) {
 
             formpay = await repositoryFormaPagamento
                 .createQueryBuilder().update()
-                .set({ valor })
-                .where({ id: Number(id) })
+                .set({ fpvvalor: valor })
+                .where({ fpvidvenda: Number(id) })
                 .execute()
 
         }
@@ -48,7 +48,7 @@ class FormaPagamentoControllerVenda {
 
         await formaPagamento.createQueryBuilder()
             .delete()
-            .where({ id: Number(id), status: false })
+            .where({ fpvidvenda: Number(id), fpvstatus: false })
             .execute()
 
     }
@@ -66,7 +66,7 @@ class FormaPagamentoControllerVenda {
 
         const pagamento = await formaPagamento
             .createQueryBuilder()
-            .where({ status: false })
+            .where({ fpvstatus: false })
             .getMany();
 
         return pagamento
@@ -75,7 +75,7 @@ class FormaPagamentoControllerVenda {
 
         const formaPagamento = await getRepository(FormaPagamentoVenda)
 
-        const pagamento = await formaPagamento.findOne({ where: { id: Number(id) } })
+        const pagamento = await formaPagamento.findOne({ where: { fpvid: Number(id) } })
         return pagamento
     }
 
@@ -83,8 +83,8 @@ class FormaPagamentoControllerVenda {
         const somaPorVenda = getRepository(FormaPagamentoVenda)
 
         const { sum } = await somaPorVenda.createQueryBuilder()
-            .select("SUM(valor)", "sum")
-            .where({ status: false, id_venda: Number(id) })
+            .select("SUM(fpvvalor)", "sum")
+            .where({ fpvstatus: false, fpvidvenda: Number(id) })
             .getRawOne();
 
         const total = Number(sum)

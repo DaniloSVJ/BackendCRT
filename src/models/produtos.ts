@@ -8,7 +8,7 @@ import {
     JoinColumn,
 } from 'typeorm';
 
-import Grupo from './grupoProdutos';
+import Grupo from './subgrupoProdutos';
 import Estoque from './estoque'
 
 /**
@@ -19,47 +19,47 @@ import Estoque from './estoque'
 @Entity('produtos')
 class Produtos {
     @PrimaryGeneratedColumn()
-    id: number;
+    produid: number;
 
     @Column()
-    codigo: string;
+    producodigo: string;
 
     @Column()
-    nome: string;
+    produnome: string;
 
     @Column()
-    imagem: string;
+    produimagem: string;
 
     @Column('decimal')
-    custo: number;
+    producusto: number;
 
     @Column('decimal')
-    estoqueMin: number;
+    produestoqueMin: number;
 
     @Column('decimal')
-    estoqueMax: number;
+    produestoqueMax: number;
 
     @Column('')
-    embalagem: string;
+    produembalagem: string;
 
     @Column('decimal')
-    quantidade: number;
+    produquantidade: number;
 
     @Column('')
-    descricaoR: string;
+    produdescricao: string;
 
     @Column('')
-    descricaoGeral: string;
+    produdescricaoGeral: string;
 
 
     @Column('decimal')
-    valor_venda: number;
+    produvalorvenda: number;
 
     @Column()
-    id_grupo: number;
+    produidgrupo: number;
 
     @OneToOne(() => Grupo) // Many Produtoss to a user
-    @JoinColumn({ name: 'id_grupo' })
+    @JoinColumn({ name: 'produidgrupo' })
     grupo: Grupo
 
     @CreateDateColumn()

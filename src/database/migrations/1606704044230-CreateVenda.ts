@@ -8,26 +8,25 @@ export class CreateVenda1606704044230 implements MigrationInterface {
                 name: 'vendas',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'vendaid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
-                    },
-                    {
-                        name: 'date',
-                        type: 'timestamp with time zone',
-                        default: 'now()',
+                        isGenerated: true,
+                        generationStrategy: 'increment'
 
                     },
 
+
                     {
-                        name: 'funcionario',
+                        name: 'vendavendedor',
                         type: 'varchar',
                     },
 
                     {
-                        name: 'id_cliente',
+                        name: 'vendaidcliente',
                         type: 'int',
+                        isNullable: true,
+
 
                     },
 
@@ -49,9 +48,10 @@ export class CreateVenda1606704044230 implements MigrationInterface {
                 foreignKeys: [
                     {
                         name: 'foreignKeyCli',
-                        columnNames: ["id_cliente"],
-                        referencedColumnNames: ['id'],
-                        referencedTableName: "clients",
+
+                        referencedTableName: "clientes",
+                        referencedColumnNames: ['cliid'],
+                        columnNames: ["vendaidcliente"],
 
 
                         onDelete: 'SET NULL',

@@ -1,15 +1,15 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import GrupoProduto from '../models/grupoProdutos'
+import GrupoProduto from '../../models/subgrupoProdutos'
 
 class CreateGrupoProduto {
-    public async execute(nome: string): Promise<GrupoProduto> {
+    public async execute(nome: string, idgrupo: number): Promise<GrupoProduto> {
         const grupoRepository = getRepository(GrupoProduto);
 
         const checkNameGrup = await grupoRepository.findOne({
-            where: { nome }
+            where: { subgrupopronome: nome }
         })
 
         if (checkNameGrup) {
@@ -17,7 +17,8 @@ class CreateGrupoProduto {
         }
 
         const grupoProduto = await grupoRepository.create({
-            nome,
+            subgrupopronome: nome,
+            subgrupoproidgrupopro: idgrupo,
         })
 
         await grupoRepository.save(grupoProduto)
@@ -26,17 +27,17 @@ class CreateGrupoProduto {
 
 
     }
-    public async update(id: string, nome: string) {
+    public async update(id: string, idgrupo: number, nome: string) {
         const repositoryGrupoProduto = getRepository(GrupoProduto)
-        const checkNameGrup = await repositoryGrupoProduto.findOne({ where: { id: Number(id) } })
+        const checkNameGrup = await repositoryGrupoProduto.findOne({ where: { grupoproid: Number(id) } })
         let grupo
 
         if (checkNameGrup) {
 
             grupo = await repositoryGrupoProduto
                 .createQueryBuilder().update()
-                .set({ nome })
-                .where({ id: Number(id) })
+                .set({ subgrupopronome: nome, subgrupoproidgrupopro: Number(idgrupo) })
+                .where({ subgrupoproid: Number(id) })
                 .execute()
 
         }
@@ -50,7 +51,7 @@ class CreateGrupoProduto {
 
         await grupoRepository.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) })
+            .where({ subgrupoproid: Number(id) })
             .execute()
 
     }
@@ -65,7 +66,7 @@ class CreateGrupoProduto {
 
         const estoqueRepository = await getRepository(GrupoProduto)
 
-        const produtos = await estoqueRepository.findOne({ where: { id: Number(id) } })
+        const produtos = await estoqueRepository.findOne({ where: { subgrupoproid: Number(id) } })
         return produtos
     }
 

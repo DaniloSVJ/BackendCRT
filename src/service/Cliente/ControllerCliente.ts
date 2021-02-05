@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm'
-import AppError from '../error/AppErro'
-import Cliente from '../models/clients'
+import AppError from '../../error/AppErro'
+import Cliente from '../../models/clients'
 
 interface Request {
 
@@ -8,6 +8,8 @@ interface Request {
     CPF: string,
     RG: string,
     telefone: string,
+    endereco: string,
+    numero: string,
     cep: string,
     bairro: string,
     cidade: string,
@@ -17,11 +19,11 @@ interface Request {
 }
 class Clientes {
 
-    public async execute({ nome, CPF, RG, telefone, cep, bairro, cidade, uf, isAtivado }: Request): Promise<Cliente> {
+    public async execute({ nome, CPF, RG, telefone, endereco, numero, cep, bairro, cidade, uf, isAtivado }: Request): Promise<Cliente> {
         const repositoryCliente = getRepository(Cliente)
 
         const checkCliente = await repositoryCliente.findOne({
-            where: { CPF }
+            where: { cliCPF: CPF }
         })
 
         if (checkCliente) {
@@ -29,14 +31,16 @@ class Clientes {
         }
 
         const cliente = repositoryCliente.create({
-            nome,
-            CPF,
-            RG,
-            telefone,
-            cep,
-            bairro,
-            cidade,
-            uf,
+            clinome: nome,
+            cliCPF: CPF,
+            cliRG: RG,
+            clitelefone: telefone,
+            cliendereco: endereco,
+            clienumero: numero,
+            clicep: cep,
+            clibairro: bairro,
+            clicidade: cidade,
+            cliuf: uf,
             isAtivado
         })
 
@@ -58,17 +62,17 @@ class Clientes {
         isAtivado: boolean
     ) {
         const repositoryCliente = getRepository(Cliente)
-        const checkCliente = await repositoryCliente.findOne({ where: { id: Number(id) } })
+        const checkCliente = await repositoryCliente.findOne({ where: { cliid: Number(id) } })
 
         if (checkCliente) {
-            checkCliente.CPF = CPF,
-                checkCliente.nome = nome,
-                checkCliente.RG = RG,
-                checkCliente.telefone = telefone,
-                checkCliente.cep = cep,
-                checkCliente.bairro = bairro,
-                checkCliente.cidade = cidade,
-                checkCliente.uf = uf
+            checkCliente.cliCPF = CPF,
+                checkCliente.clinome = nome,
+                checkCliente.cliRG = RG,
+                checkCliente.clitelefone = telefone,
+                checkCliente.clicep = cep,
+                checkCliente.clibairro = bairro,
+                checkCliente.clicidade = cidade,
+                checkCliente.cliuf = uf
             checkCliente.isAtivado = isAtivado
 
             repositoryCliente.save(checkCliente)
@@ -83,7 +87,7 @@ class Clientes {
 
         await grupoRepository.createQueryBuilder()
             .delete()
-            .where({ id })
+            .where({ cliid: id })
             .execute()
 
     }
@@ -98,7 +102,7 @@ class Clientes {
 
         const clienteRepository = await getRepository(Cliente)
 
-        const produtos = await clienteRepository.findOne({ where: { id: Number(id) } })
+        const produtos = await clienteRepository.findOne({ where: { cliid: Number(id) } })
         return produtos
     }
 

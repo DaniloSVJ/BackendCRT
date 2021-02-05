@@ -1,11 +1,7 @@
 import { getRepository } from 'typeorm'
-import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
+import Produto from '../../models/produtos'
 
-import AddProdutoEstoque from './ControllerProdutoEstoque'
-
-import Produto from '../models/produtos'
-import { request, response } from 'express'
 interface Request {
 
     nome: string,
@@ -27,7 +23,7 @@ class CreateProduto {
     public async execute({ nome, codigo, custo, valor_venda, id_grupo, estoqueMin, estoqueMax, embalagem, quantidade, descricaoR, descricaoGeral }: Request): Promise<Produto> {
         const produdoRepository = getRepository(Produto)
         const checkProdutoExist = await produdoRepository.findOne({
-            where: { nome }
+            where: { produnome: nome }
         })
 
         if (checkProdutoExist) {
@@ -35,17 +31,17 @@ class CreateProduto {
         }
 
         const produto = produdoRepository.create({
-            nome,
-            codigo,
-            custo,
-            valor_venda,
-            id_grupo,
-            estoqueMin,
-            estoqueMax,
-            embalagem,
-            quantidade,
-            descricaoR,
-            descricaoGeral
+            produnome: nome,
+            producodigo: codigo,
+            producusto: custo,
+            produvalorvenda: valor_venda,
+            produidgrupo: id_grupo,
+            produestoqueMin: estoqueMin,
+            produestoqueMax: estoqueMax,
+            produembalagem: embalagem,
+            produquantidade: quantidade,
+            produdescricao: descricaoR,
+            produdescricaoGeral: descricaoGeral
 
         })
 
@@ -54,18 +50,18 @@ class CreateProduto {
     }
     public async update(id: string, nome: string, codigo: string, custo: number, valor_venda: number, id_grupo: number) {
         const repositoryProduto = getRepository(Produto)
-        let checkProduto = await repositoryProduto.findOne({ where: { id } })
+        let checkProduto = await repositoryProduto.findOne({ where: { produid: Number(id) } })
         let produto
 
 
 
         if (checkProduto) {
 
-            checkProduto.nome = nome
-            checkProduto.codigo = codigo
-            checkProduto.custo = custo
-            checkProduto.valor_venda = valor_venda
-            checkProduto.id_grupo = id_grupo
+            checkProduto.produnome = nome
+            checkProduto.producodigo = codigo
+            checkProduto.producusto = custo
+            checkProduto.produvalorvenda = valor_venda
+            checkProduto.produidgrupo = id_grupo
             repositoryProduto.save(checkProduto)
 
         }
@@ -81,7 +77,7 @@ class CreateProduto {
 
         await grupoRepository.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) })
+            .where({ produid: Number(id) })
             .execute()
 
     }
@@ -97,7 +93,7 @@ class CreateProduto {
 
         const estoqueRepository = await getRepository(Produto)
 
-        let produtos = await estoqueRepository.findOne({ where: { codigo } })
+        let produtos = await estoqueRepository.findOne({ where: { producodigo: codigo } })
 
         if (produtos) {
             return produtos

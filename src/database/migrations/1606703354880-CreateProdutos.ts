@@ -8,61 +8,95 @@ export class CreateProdutos1606703354880 implements MigrationInterface {
                 name: 'produtos',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'produid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
+
                     },
                     {
-                        name: 'codigo',
+                        name: 'producodigo',
                         type: 'varchar'
                     },
 
                     {
-                        name: 'nome',
+                        name: 'produnome',
                         type: 'varchar',
 
                     },
                     {
-                        name: 'custo',
+                        name: 'producusto',
                         type: 'decimal',
                         precision: 10,
-                        scale: 2,
+                        scale: 4,
                     },
                     {
-                        name: 'valor_venda',
+                        name: 'produvalorvenda',
                         type: 'decimal',
                         precision: 10,
-                        scale: 2,
+                        scale: 4,
                     },
                     {
-                        name: 'id_grupo',
+                        name: 'produestoqueMin',
                         type: 'int',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'produestoqueMax',
+                        type: 'int',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'produembalagem',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'produquantidade',
+                        type: 'int',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'produdescricao',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'produdescricaogeral',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'produidgrupo',
+                        type: 'int',
+                        isNullable: true,
+
 
 
                     },
                     {
-                        name: 'imagem',
+                        name: 'produimagem',
                         type: 'varchar',
                         isNullable: true
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                 ],
                 foreignKeys: [
                     {
                         name: 'foreignKeygrup',
-                        referencedTableName: 'grupo_produtos',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_grupo'],
+                        referencedTableName: 'subgrupoprodutos',
+                        referencedColumnNames: ['subgrupoproid'],
+                        columnNames: ['produidgrupo'],
                         onDelete: 'SET NULL',
                         onUpdate: 'CASCADE',
                     },

@@ -1,55 +1,59 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import FormaPagamento from '../models/formaPagamento'
+import FormaPagamento from '../../models/formaPagamento'
 
 class FormaPagamentoController {
     public async execute(nome: string): Promise<FormaPagamento> {
+
         const formaPagamento = getRepository(FormaPagamento);
-
+        console.log("par1")
         const checkNameGrup = await formaPagamento.findOne({
-            where: { nome }
+            where: { forpagnome: nome }
         })
-
+        console.log("par2")
         if (checkNameGrup) {
-
             throw new AppError('Name grupo already used')
         }
+
         let ordem = 0
+        console.log("par3")
         const { count } = await formaPagamento.createQueryBuilder()
-            .select("Count(nome)", "count")
+            .select("Count(forpagnome)", "count")
             .getRawOne()
 
         console.log("O tamanho é : " + count)
+        console.log("par4")
         if (Number(count) === 0) {
             ordem = 1;
         } else if (Number(count) > 0) {
             ordem = Number(count) + 1;
         }
+        console.log("par5")
 
-        const grupoProduto = await formaPagamento.create({
-            nome,
-            ordem
+        const forma = await formaPagamento.create({
+            forpagnome: nome,
+            forpaordem: ordem
         })
 
-        await formaPagamento.save(grupoProduto)
+        await formaPagamento.save(forma)
 
-        return (grupoProduto)
-
+        return (forma)
 
     }
+
     public async update(id: string, nome: string) {
         const repositoryFormaPagamento = getRepository(FormaPagamento)
-        const checkCliente = await repositoryFormaPagamento.findOne({ where: { id: Number(id) } })
+        const checkCliente = await repositoryFormaPagamento.findOne({ where: { forpagid: Number(id) } })
         let pagamento
 
         if (checkCliente) {
 
             pagamento = await repositoryFormaPagamento
                 .createQueryBuilder().update()
-                .set({ nome })
-                .where({ id: Number(id) })
+                .set({ forpagnome: nome })
+                .where({ forpagid: Number(id) })
                 .execute()
 
         }
@@ -62,7 +66,7 @@ class FormaPagamentoController {
 
         await formaPagamento.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) })
+            .where({ forpagid: Number(id) })
             .execute()
 
     }
@@ -78,9 +82,9 @@ class FormaPagamentoController {
 
         const formaPagamento = await getRepository(FormaPagamento)
         let nomeTexto
-        const pagamento = await formaPagamento.findOne({ where: { ordem: Number(id) } })
+        const pagamento = await formaPagamento.findOne({ where: { forpagid: Number(id) } })
         if (pagamento) {
-            nomeTexto = pagamento.nome
+            nomeTexto = pagamento.forpagnome
         }
         // nomeTexto  = await formaPagamento
         // .createQueryBuilder()

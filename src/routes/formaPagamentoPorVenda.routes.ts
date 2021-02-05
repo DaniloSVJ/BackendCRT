@@ -1,5 +1,5 @@
 import { response, Router } from "express"
-import FormaPagamentoVenda from '../service/ControllerFormaPagamentoPorVenda'
+import FormaPagamentoVenda from '../service/FormaPagamento/ControllerFormaPagamentoPorVenda'
 
 const formPagamentoVendaRoutes = Router()
 
@@ -31,9 +31,19 @@ formPagamentoVendaRoutes.delete('/:id', async (request, response) => {
 
     const { id } = request.params
     const formapagamento = new FormaPagamentoVenda();
-    await formapagamento.delete(id)
-
-    return response.send('Forma de pagamento Deletada')
+    let messagem = ''
+    const qtdAfedado = await formapagamento.delete(id)
+    if (qtdAfedado === 0) {
+        messagem = 'Nenhum registro foi deletado'
+    } else {
+        if (qtdAfedado === 1) {
+            messagem = `Foi deletado ${qtdAfedado} registro`
+        }
+        else {
+            messagem = `Foram deletados ${qtdAfedado} registros`
+        }
+    }
+    return response.send(messagem)
 
 
 })

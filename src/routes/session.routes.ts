@@ -1,21 +1,21 @@
 'strict'
-import { Router} from "express"
-import AuthenticateSessionService from '../service/AuthenticateSessionService'
+import { Router } from "express"
+import AuthenticateSessionService from '../service/User/AuthenticateSessionService'
 const sessionsRoutes = Router()
 
 //const appointments:Appointment[] = []
 
- sessionsRoutes.post('/', async (request,response)=>{
+sessionsRoutes.post('/', async (request, response) => {
 
-    const {email,password} = request.body;
+    const { email, password } = request.body;
     const authenticateUser = new AuthenticateSessionService()
 
-    const {user,token}= await authenticateUser.execute({
+    // const {user,token}= await authenticateUser.execute({
 
-        email,
-        password
+    //     email,
+    //     password
 
-    })
+    // })
 
     //delete user.email
 

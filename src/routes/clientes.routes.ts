@@ -1,5 +1,5 @@
 import { response, Router } from "express"
-import ClienteController from '../service/ControllerCliente'
+import ClienteController from '../service/Cliente/ControllerCliente'
 //import UpdateProdutoImagemService from '../service/UpdateProdutoImagemService'
 import multer from 'multer'
 import uploadConfig from "../config/upload"
@@ -9,7 +9,7 @@ clienteRoutes.post('/', async (request, response) => {
 
 
 
-    const { nome, CPF, RG, telefone, cep, bairro, cidade, uf, isAtivado } = request.body
+    const { nome, CPF, RG, telefone, endereco, numero, cep, bairro, cidade, uf, isAtivado } = request.body
 
     const clienteController = new ClienteController();
 
@@ -19,6 +19,8 @@ clienteRoutes.post('/', async (request, response) => {
             CPF,
             RG,
             telefone,
+            endereco,
+            numero,
             cep,
             bairro,
             cidade,

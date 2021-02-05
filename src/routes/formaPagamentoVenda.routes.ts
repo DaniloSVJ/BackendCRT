@@ -1,5 +1,5 @@
 import { response, Router } from "express"
-import FormaPagamentoVenda from '../service/ControllerFormaPagamentoVenda'
+import FormaPagamentoVenda from '../service/FormaPagamento/ControllerFormaPagamentoVenda'
 
 const formPagamentoVendaRoutes = Router()
 

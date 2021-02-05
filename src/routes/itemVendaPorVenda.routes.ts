@@ -1,5 +1,5 @@
-import { response, Router} from "express"
-import ItemVenda from '../service/ControllerItemVendaPorVenda'
+import { response, Router } from "express"
+import ItemVenda from '../service/ItemVenda/ControllerItemVendaPorVenda'
 
 const intemvendaPorVenda = Router()
 
@@ -15,21 +15,21 @@ const intemvendaPorVenda = Router()
 
 // })
 
-intemvendaPorVenda.put('/:id',async (request,response)=>{
+intemvendaPorVenda.put('/:id', async (request, response) => {
 
-    const{id} = request.params
-    const{id_vendas,status} = request.body
+    const { id } = request.params
+    const { id_vendas, status } = request.body
     const itemvenda = new ItemVenda();
-    const item = await itemvenda.update(id,id_vendas,status)
+    const item = await itemvenda.update(id, id_vendas, status)
 
     return response.json(item)
 
 
 })
 
-intemvendaPorVenda.delete('/:id',async (request,response)=>{
+intemvendaPorVenda.delete('/:id', async (request, response) => {
 
-    const{id} = request.params
+    const { id } = request.params
     const itemVenda = new ItemVenda();
     await itemVenda.delete(id)
 

@@ -6,32 +6,33 @@ export class FormaPagamento1606147649112 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'forma_pagamento',
+                name: 'formapagamento',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'forpagid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
 
                     },
                     {
-                        name: 'nome',
+                        name: 'forpagnome',
                         type: 'varchar'
                     },
                     {
-                        name: 'ordem',
+                        name: 'forpaordem',
                         type: 'int',
                         isNullable: true,
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamp with time zone',
+                        type: 'UTC_TIMESTAMP',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
 
@@ -41,7 +42,7 @@ export class FormaPagamento1606147649112 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('forma_pagamento');
+        await queryRunner.dropTable('formapagamento');
     }
 
 }

@@ -16,16 +16,16 @@ import {
  * Muitos para Muitos (ManyToMany)
  */
 
-@Entity('forma_pagamento')
+@Entity('formapagamento')
 class FormaPagamento {
     @PrimaryGeneratedColumn()
-    id: number;
+    forpagid: number;
 
     @Column()
-    nome: string;
+    forpagnome: string;
 
     @Column()
-    ordem: number;
+    forpaordem: number;
 
     @CreateDateColumn()
     created_at: Date;

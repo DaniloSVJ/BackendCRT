@@ -1,23 +1,23 @@
-import { response, Router} from "express"
-import ControllerVendas from '../service/ControllerVendas'
+import { response, Router } from "express"
+import ControllerVendas from '../service/Venda/ControllerVendas'
 
 const vendaRoutes = Router()
 
-vendaRoutes.post('/', async (request,response)=>{
+vendaRoutes.post('/', async (request, response) => {
 
-    const{id_cliente,funcionario,} = request.body
+    const { id_cliente, vendedor, } = request.body
 
     const createVenda = new ControllerVendas();
 
-    const venda = await createVenda.execute(id_cliente,funcionario)
+    const venda = await createVenda.execute(id_cliente, vendedor)
 
     return response.json(venda)
 
 })
 
-vendaRoutes.delete('/:id',async (request,response)=>{
+vendaRoutes.delete('/:id', async (request, response) => {
 
-    const{id} = request.params
+    const { id } = request.params
     const deletarVenda = new ControllerVendas();
     await deletarVenda.delete(id)
 
@@ -25,9 +25,21 @@ vendaRoutes.delete('/:id',async (request,response)=>{
 
 
 })
-vendaRoutes.get('/:id',async (request,response)=>{
 
-    const{id} = request.params
+vendaRoutes.put('/:id', async (request, response) => {
+
+    const { id } = request.params
+    const { id_cliente, vendedor } = request.body
+    const deletarVenda = new ControllerVendas();
+    await deletarVenda.update(id, id_cliente, vendedor)
+
+    return response.json('Venda Atualizada')
+
+
+})
+vendaRoutes.get('/:id', async (request, response) => {
+
+    const { id } = request.params
     const verVenda = new ControllerVendas();
     const venda = await verVenda.get(id)
 
@@ -35,7 +47,7 @@ vendaRoutes.get('/:id',async (request,response)=>{
 
 
 })
-vendaRoutes.get('/',async (request,response)=>{
+vendaRoutes.get('/', async (request, response) => {
 
 
     const verVenda = new ControllerVendas();

@@ -5,11 +5,11 @@ import {
     UpdateDateColumn,
     CreateDateColumn,
     OneToMany,
-    ManyToMany,
-    JoinColumn,
+    // ManyToMany,
+    // JoinColumn,
 } from 'typeorm';
 
-
+import Produto from './produtos';
 
 /**
  * Um para Um (OneToOne)
@@ -17,16 +17,17 @@ import {
  * Muitos para Muitos (ManyToMany)
  */
 
-@Entity('vendedor')
-class funcionario {
+@Entity('subgrupoprodutos')
+class SubGrupoProdutos {
+
     @PrimaryGeneratedColumn()
-    venddorid: number;
+    subgrupoproid: number;
 
     @Column()
-    venddornome: string;
+    subgrupopronome: string;
 
     @Column()
-    venddorcpf: string;
+    subgrupoproidgrupopro: number;
 
     @CreateDateColumn()
     created_at: Date;
@@ -36,4 +37,4 @@ class funcionario {
 
 
 }
-export default funcionario;
+export default SubGrupoProdutos;

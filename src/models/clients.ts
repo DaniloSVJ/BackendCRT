@@ -14,35 +14,41 @@ import {
  * Um para Muitos (OneToMany)
  * Muitos para Muitos (ManyToMany)
  */
-@Entity('clients')
+@Entity('clientes')
 class Clientes {
     @PrimaryGeneratedColumn()
-    id: number;
+    cliid: number;
 
     @Column()
-    nome: string;
+    clinome: string;
 
     @Column()
-    bairro: string;
+    cliendereco: string;
 
     @Column()
-    cep: string;
+    clienumero: string;
+
+    @Column()
+    clibairro: string;
+
+    @Column()
+    clicep: string;
 
 
     @Column()
-    cidade: string;
+    clicidade: string;
 
     @Column()
-    uf: string;
+    cliuf: string;
 
     @Column()
-    telefone: string;
+    clitelefone: string;
 
     @Column()
-    CPF: string;
+    cliCPF: string;
 
     @Column()
-    RG: string;
+    cliRG: string;
 
     @Column('boolean')
     isAtivado: boolean;

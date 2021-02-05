@@ -1,18 +1,18 @@
-import {getRepository} from 'typeorm'
+import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import teste from '../models/teste'
+import teste from '../../models/teste'
 
 class CreateGrupoProduto {
-    public async execute(nome:string):Promise<teste>{
+    public async execute(nome: string): Promise<teste> {
         const testeRepo = getRepository(teste);
 
-        const checkNametesteRepo= await testeRepo.findOne({
-            where:{nome}
+        const checkNametesteRepo = await testeRepo.findOne({
+            where: { nome }
         })
 
-        if(checkNametesteRepo){
+        if (checkNametesteRepo) {
             throw new AppError('Name grupo already used')
         }
 
@@ -22,7 +22,7 @@ class CreateGrupoProduto {
 
         await testeRepo.save(grupoProduto)
 
-        return(grupoProduto)
+        return (grupoProduto)
 
 
     }

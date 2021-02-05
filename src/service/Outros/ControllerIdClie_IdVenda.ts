@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import IdDoCli_IdVenda from '../models/IdCli_IdCaixa'
+import IdDoCli_IdVenda from '../../models/IdCli_IdCaixa'
 
 class CreateIDsRepository {
-    public async execute(idCliente:number,idcaixa:number): Promise<IdDoCli_IdVenda> {
+    public async execute(idCliente: number, idcaixa: number): Promise<IdDoCli_IdVenda> {
         const IdsRepository = getRepository(IdDoCli_IdVenda);
 
         const checkNameGrup = await IdsRepository.findOne({
@@ -27,14 +27,14 @@ class CreateIDsRepository {
 
 
     }
-    public async update(idCliente: string ,idcaixa : number) {
+    public async update(idCliente: string, idcaixa: number) {
         const IdsRepository = getRepository(IdDoCli_IdVenda)
         const idcli = Number(idCliente)
         let ids = await IdsRepository
-                .createQueryBuilder().update()
-                .set({ idCliente:idcli,idcaixa })
-                .where({ idCliente })
-                .execute()
+            .createQueryBuilder().update()
+            .set({ idCliente: idcli, idcaixa })
+            .where({ idCliente })
+            .execute()
 
 
 

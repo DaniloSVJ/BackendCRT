@@ -1,12 +1,12 @@
-import { response, Router} from "express"
-import FormaPagamento from '../service/ControllerFormaPagamento'
+import { response, Router } from "express"
+import FormaPagamento from '../service/FormaPagamento/ControllerFormaPagamento'
 
 const formaPagamentoRoutes = Router()
 
 
-formaPagamentoRoutes.post('/', async (request,response)=>{
+formaPagamentoRoutes.post('/', async (request, response) => {
 
-    const{nome} = request.body
+    const { nome } = request.body
 
     const createFormaPagamento = new FormaPagamento();
 
@@ -19,21 +19,21 @@ formaPagamentoRoutes.post('/', async (request,response)=>{
 
 })
 
-formaPagamentoRoutes.put('/:id',async (request,response)=>{
+formaPagamentoRoutes.put('/:id', async (request, response) => {
 
-    const{id} = request.params
-    const{nome} = request.body
+    const { id } = request.params
+    const { nome } = request.body
     const formapagamento = new FormaPagamento();
-    const formpayup = await formapagamento.update(id,nome)
+    const formpayup = await formapagamento.update(id, nome)
 
     return response.json(formpayup)
 
 
 })
 
-formaPagamentoRoutes.delete('/:id',async (request,response)=>{
+formaPagamentoRoutes.delete('/:id', async (request, response) => {
 
-    const{id} = request.params
+    const { id } = request.params
     const formapagamento = new FormaPagamento();
     await formapagamento.delete(id)
 
@@ -41,9 +41,9 @@ formaPagamentoRoutes.delete('/:id',async (request,response)=>{
 
 
 })
-formaPagamentoRoutes.get('/:id',async (request,response)=>{
+formaPagamentoRoutes.get('/:id', async (request, response) => {
 
-    const{id} = request.params
+    const { id } = request.params
     const formaPagamento = new FormaPagamento();
     const formapagamento = await formaPagamento.get(id)
 
@@ -51,7 +51,7 @@ formaPagamentoRoutes.get('/:id',async (request,response)=>{
 
 
 })
-formaPagamentoRoutes.get('/',async (request,response)=>{
+formaPagamentoRoutes.get('/', async (request, response) => {
 
 
     const formaPagamento = new FormaPagamento();

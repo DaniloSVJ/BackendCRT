@@ -1,11 +1,11 @@
 import { response, Router } from "express"
-import ControllerItemVendas from '../service/ControllerItemVendas'
+import ControllerItemVendas from '../service/ItemVenda/ControllerItemVendas'
 
 const ItemvendaRoutes = Router()
 
 ItemvendaRoutes.post('/', async (request, response) => {
 
-    const { id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido, status,isAtivado } = request.body
+    const { id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido, status, isAtivado } = request.body
 
     const createVenda = new ControllerItemVendas();
 

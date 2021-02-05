@@ -17,37 +17,37 @@ import Venda from './vendas';
  * Um para Muitos (OneToMany)
  * Muitos para Muitos (ManyToMany)
  */
-@Entity('items_vendas')
+@Entity('itemsvendas')
 class ItemVenda {
     @PrimaryGeneratedColumn()
-    id: number;
+    itvid: number;
 
     @Column('decimal')
-    qtdvendido: number;
+    itvqtdvendido: number;
 
     @Column('decimal')
-    valor_vendido: number;
+    itvvalorvendido: number;
 
     @Column('decimal')
-    status: number;
+    itvstatus: number;
 
     @Column('decimal')
-    id_vendas: number;
+    itvidvendas: number;
 
     @Column()
-    nome_produto: string;
+    itvnomeproduto: string;
 
     @Column()
-    codigo_produto: string;
+    itvcodigoproduto: string;
 
     @Column('decimal')
-    ordem: number;
+    itvordem: number;
 
     @Column('boolean')
     isAtivado: boolean;
 
     @Column()
-    id_produtos: number;
+    itvidprodutos: number;
 
     @CreateDateColumn()
     created_at: Date;

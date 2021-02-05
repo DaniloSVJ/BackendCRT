@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import IdDoCli_IdVenda from '../models/IdCil_idCaixa'
+import IdDoCli_IdVenda from '../../models/IdCil_idCaixa'
 
 class CreateIDsRepository {
     public async execute(idCli: number, idCaixa: number) {

@@ -1,8 +1,7 @@
 import { getRepository, getConnection } from 'typeorm'
-import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
 
-import ItemVendas from '../models/itemVendaAcessoria'
+
+import ItemVendas from '../../models/itemVenda'
 
 interface Request {
 
@@ -12,21 +11,24 @@ interface Request {
     qtdvendido: number,
     valor_vendido: number,
     nome_produto: string,
-    codigo_produto: string
+    codigo_produto: string,
+    status: number,
+    isAtivado: boolean,
 }
 
 class ItemVendasController {
-    public async execute({ id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido }: Request): Promise<ItemVendas> {
+    public async execute({ id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido, status }: Request): Promise<ItemVendas> {
         const vendaRepository = getRepository(ItemVendas);
 
         const itemvenda = await vendaRepository.create({
-            id_vendas,
-            ordem,
-            nome_produto,
-            id_produtos,
-            qtdvendido,
-            valor_vendido,
-            codigo_produto
+            itvidvendas: id_vendas,
+            itvordem: ordem,
+            itvnomeproduto: nome_produto,
+            itvidprodutos: id_produtos,
+            itvqtdvendido: qtdvendido,
+            itvvalorvendido: valor_vendido,
+            itvcodigoproduto: codigo_produto,
+            itvstatus: status
 
         })
 
@@ -49,15 +51,13 @@ class ItemVendasController {
         const checkItemVenda = await repositoryItemVenda.createQueryBuilder()
             .update()
             .set({
-                qtdvendido: qtdvendido,
-                valor_vendido: valor_vendido,
-
+                itvqtdvendido: qtdvendido,
+                itvvalorvendido: valor_vendido,
             })
-            .where({ id: Number(id) })
-
+            .where({ itvid: Number(id) })
             .execute();
 
-        const itemvenda = repositoryItemVenda.findOne({ id: Number(id) })
+        const itemvenda = repositoryItemVenda.findOne({ itvid: Number(id) })
 
         return itemvenda
 
@@ -72,15 +72,15 @@ class ItemVendasController {
 
         const vendaRepository = getRepository(ItemVendas);
 
-        let checkProduto = await vendaRepository.findOne({ where: { codigo_produto } })
+        let checkProduto = await vendaRepository.findOne({ where: { itvcodigoproduto: codigo_produto } })
         let produto
 
         if (checkProduto) {
 
 
-            checkProduto.codigo_produto = codigo_produto
-            checkProduto.qtdvendido = qtdvendido
-            checkProduto.valor_vendido = valor_vendido
+            checkProduto.itvcodigoproduto = codigo_produto
+            checkProduto.itvqtdvendido = qtdvendido
+            checkProduto.itvvalorvendido = valor_vendido
             vendaRepository.save(checkProduto)
             console.log(checkProduto)
         }
@@ -94,15 +94,7 @@ class ItemVendasController {
 
         await deleteItemVendas.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) })
-            .execute()
-
-    }
-    public async deleteAll() {
-        const deleteItemVendas = getRepository(ItemVendas)
-
-        await deleteItemVendas.createQueryBuilder()
-            .delete()
+            .where({ itvid: Number(id) })
             .execute()
 
     }
@@ -113,26 +105,42 @@ class ItemVendasController {
 
         return itemVenda
     }
+
+    public async getAllStatus() {
+        const itemVendaRepository = await getRepository(ItemVendas)
+
+        const itemVenda = await itemVendaRepository
+            .createQueryBuilder()
+            .where({ itvstatus: "2" })
+            .getMany();
+
+        let itens = [itemVenda]
+        return itemVenda
+
+    }
+
     public async get(id: string) {
 
         const itemRepository = await getRepository(ItemVendas)
-        const itemVendas = await itemRepository.findOne({ where: { id: Number(id) } })
+        const itemVendas = await itemRepository.findOne({ where: { itvid: Number(id) } })
 
         return itemVendas
     }
+
     public async getVercodigo(codigo_produto: string) {
 
         const itemRepository = await getRepository(ItemVendas)
-        const itemVendas = await itemRepository.findOne({ where: { codigo_produto } })
+        const itemVendas = await itemRepository.findOne({ where: { itvcodigoproduto: codigo_produto } })
 
         return itemVendas
     }
+
     public async soma(id: string) {
         const somaPorVenda = getRepository(ItemVendas)
 
         const { sum } = await somaPorVenda.createQueryBuilder()
-            .select("SUM (valor_vendido)", "sum")
-            .where({ id_vendas: Number(id) })
+            .select("SUM (itvvalorvendido)", "sum")
+            .where({ itvidvendas: Number(id) })
             .getRawOne();
         return sum
     }

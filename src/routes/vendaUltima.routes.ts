@@ -1,10 +1,10 @@
-import { response, Router} from "express"
-import ControllerVendas from '../service/ControllerVendaUltima'
+import { response, Router } from "express"
+import ControllerVendas from '../service/Venda/ControllerVendaUltima'
 
 const vendaRoutes = Router()
 
 
-vendaRoutes.get('/',async (request,response)=>{
+vendaRoutes.get('/', async (request, response) => {
 
 
     const verVenda = new ControllerVendas();

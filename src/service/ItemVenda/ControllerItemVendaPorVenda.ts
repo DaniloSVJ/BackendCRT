@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import ItemVenda from '../models/itemVenda'
+import ItemVenda from '../../models/itemVenda'
 
 class FormaPagamentoController {
     public async delete(id: string) {
@@ -10,18 +10,18 @@ class FormaPagamentoController {
 
         await formaPagamento.createQueryBuilder()
             .delete()
-            .where({ id_venda: Number(id) , status:"2"})
+            .where({ itvidvendas: Number(id), itvstatus: "2" })
             .execute()
 
     }
-    public async update(id: string,id_vendas:number ,status: number) {
+    public async update(id: string, id_vendas: number, status: number) {
         const repositoryFormaPagamento = getRepository(ItemVenda)
 
         let formpay = await repositoryFormaPagamento
-                .createQueryBuilder().update()
-                .set({ id_vendas,status })
-                .where({ id_vendas: Number(id) })
-                .execute()
+            .createQueryBuilder().update()
+            .set({ itvidvendas: id_vendas, itvstatus: status })
+            .where({ itvidvendas: Number(id) })
+            .execute()
 
 
 

@@ -6,49 +6,53 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
         await queryRunner.createTable(
             new Table(
                 {
-                    name: 'forma_pagamento_venda',
+                    name: 'formapagamentovenda',
                     columns: [
                         {
-                            name: 'id',
+                            name: 'fpvid',
                             type: 'int',
                             isPrimary: true,
-                            isGenerated: true
+                            isGenerated: true,
+                            generationStrategy: 'increment'
+
 
                         },
                         {
-                            name: 'valor',
+                            name: 'fpvvalor',
                             type: 'decimal',
                             precision: 10,
-                            scale: 2,
+                            scale: 4,
                         },
                         {
-                            name: 'id_venda',
+                            name: 'fpvidvenda',
                             type: 'int',
                         },
                         {
-                            name: 'id_forma_pagmet',
+                            name: 'fpvidforpag',
+                            type: 'int',
+                            isNullable: true,
+
+                        },
+                        {
+                            name: 'fpvordem',
                             type: 'int',
                         },
                         {
-                            name: 'ordem',
-                            type: 'int',
-                        },
-                        {
-                            name: 'formapagamento',
+                            name: 'fpvformapagamento',
                             type: 'varchar',
                         },
                         {
-                            name: 'status',
+                            name: 'fpvstatus',
                             type: 'boolean',
                         },
                         {
                             name: 'created_at',
-                            type: 'timestamp with time zone',
+                            type: 'timestamp',
                             default: 'now()',
                         },
                         {
                             name: 'updated_at',
-                            type: 'timestamp with time zone',
+                            type: 'timestamp',
                             default: 'now()',
                         },
 
@@ -59,9 +63,9 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
                         {
 
                             name: 'foreignKeyForma',
-                            referencedTableName: 'forma_pagamento',
-                            referencedColumnNames: ['id'],
-                            columnNames: ['id_forma_pagmet'],
+                            referencedTableName: 'formapagamento',
+                            referencedColumnNames: ['forpagid'],
+                            columnNames: ['fpvidforpag'],
                             onDelete: 'SET NULL',
                             onUpdate: 'CASCADE',
 
@@ -73,9 +77,9 @@ export class CreateFormaPagamentoVenda1606704536100 implements MigrationInterfac
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey("forma_pagamento_venda", "foreignKeyV");
-        await queryRunner.dropForeignKey("forma_pagamento_venda", "foreignKeyForma");
-        await queryRunner.dropTable('forma_pagamento');
+        await queryRunner.dropForeignKey("formapagamentovenda", "foreignKeyV");
+        await queryRunner.dropForeignKey("formapagamentovenda", "foreignKeyForma");
+        await queryRunner.dropTable('formapagamentovenda');
     }
 
 }

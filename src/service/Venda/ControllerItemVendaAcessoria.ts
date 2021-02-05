@@ -1,8 +1,8 @@
 import { getRepository, getConnection } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import ItemVendas from '../models/itemVenda'
+import ItemVendas from '../../models/itemVendaAcessoria'
 
 interface Request {
 
@@ -12,13 +12,11 @@ interface Request {
     qtdvendido: number,
     valor_vendido: number,
     nome_produto: string,
-    codigo_produto: string,
-    status: number,
-    isAtivado: boolean,
+    codigo_produto: string
 }
 
 class ItemVendasController {
-    public async execute({ id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido, status }: Request): Promise<ItemVendas> {
+    public async execute({ id_vendas, ordem, codigo_produto, nome_produto, id_produtos, qtdvendido, valor_vendido }: Request): Promise<ItemVendas> {
         const vendaRepository = getRepository(ItemVendas);
 
         const itemvenda = await vendaRepository.create({
@@ -28,8 +26,7 @@ class ItemVendasController {
             id_produtos,
             qtdvendido,
             valor_vendido,
-            codigo_produto,
-            status
+            codigo_produto
 
         })
 
@@ -101,24 +98,19 @@ class ItemVendasController {
             .execute()
 
     }
+    public async deleteAll() {
+        const deleteItemVendas = getRepository(ItemVendas)
+
+        await deleteItemVendas.createQueryBuilder()
+            .delete()
+            .execute()
+
+    }
     public async getAll() {
 
         const itemVendaRepository = await getRepository(ItemVendas)
         const itemVenda = await itemVendaRepository.find()
-        console.log(itemVenda)
-        return itemVenda
-    }
 
-    public async getAllStatus() {
-        const itemVendaRepository = await getRepository(ItemVendas)
-
-        const itemVenda = await itemVendaRepository
-            .createQueryBuilder()
-            .where({ status: "2" })
-            .getMany();
-
-        console.log(itemVenda)
-        let itens = [itemVenda]
         return itemVenda
     }
     public async get(id: string) {

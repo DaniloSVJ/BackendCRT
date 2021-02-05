@@ -17,14 +17,14 @@ import Produto from './produtos';
  * Muitos para Muitos (ManyToMany)
  */
 
-@Entity('grupo_produtos')
-class GrupoProdutos {
+@Entity('grupoproduto')
+class SubGrupoProdutos {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    grupoproid: number;
 
     @Column()
-    nome: string;
+    grupopronome: string;
 
     @CreateDateColumn()
     created_at: Date;
@@ -34,4 +34,4 @@ class GrupoProdutos {
 
 
 }
-export default GrupoProdutos;
+export default SubGrupoProdutos;

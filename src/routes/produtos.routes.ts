@@ -1,6 +1,6 @@
 import { response, Router } from "express"
-import ControllerProduto from '../service/ControllerProduto'
-import AddProdutoEstoque from '../service/ControllerProdutoEstoque'
+import ControllerProduto from '../service/Produto/ControllerProduto'
+//import AddProdutoEstoque from '../service/Produto/ControllerProdutoEstoque'
 import multer from 'multer'
 import uploadConfig from "../config/upload"
 
@@ -87,30 +87,30 @@ produtoRoutes.post('/', async (request, response) => {
 
 
 })
-produtoRoutesEestoqueAdd.put('/', async (request, response) => {
+// produtoRoutesEestoqueAdd.put('/', async (request, response) => {
 
-    const { id } = request.body
+//     const { id } = request.body
 
-    const addProdtudoEstoque = new AddProdutoEstoque();
+//     const addProdtudoEstoque = new AddProdutoEstoque();
 
-    const produto = await addProdtudoEstoque.aumentar(id)
+//     const produto = await addProdtudoEstoque.aumentar(id)
 
-    //delete user.email
+//     //delete user.email
 
-    return response.json(produto)
-})
+//     return response.json(produto)
+// })
 
-produtoRoutesEestoqueRemove.put('/', async (request, response) => {
+// produtoRoutesEestoqueRemove.put('/', async (request, response) => {
 
-    const { id } = request.body
+//     const { id } = request.body
 
-    const addProdtudoEstoque = new AddProdutoEstoque();
+//     const addProdtudoEstoque = new AddProdutoEstoque();
 
-    const produto = await addProdtudoEstoque.diminuir(id)
+//     const produto = await addProdtudoEstoque.diminuir(id)
 
-    //delete user.email
+//     //delete user.email
 
-    return response.json(produto)
-})
+//     return response.json(produto)
+// })
 
 export default ({ produtoRoutes, produtoRoutesEestoqueAdd, produtoRoutesEestoqueRemove });

@@ -1,16 +1,16 @@
 import { getRepository } from 'typeorm'
 import { isExportSpecifier } from "typescript"
-import AppError from '../error/AppErro'
+import AppError from '../../error/AppErro'
 
-import Vendas from '../models/vendas'
+import Vendas from '../../models/vendas'
 
 class ContreollerVenda {
-    public async execute(id_cliente: number, funcionario: string): Promise<Vendas> {
+    public async execute(id_cliente: number, vendedor: string): Promise<Vendas> {
         const vendaRepository = getRepository(Vendas);
 
         const vendaProduto = await vendaRepository.create({
-            id_cliente,
-            funcionario,
+            vendaidcliente: id_cliente,
+            vendavendedor: vendedor,
         })
 
         await vendaRepository.save(vendaProduto)
@@ -19,17 +19,17 @@ class ContreollerVenda {
 
 
     }
-    public async update(id: string, funcionario: string, id_cliente: number) {
+    public async update(id: string, id_cliente: number, vendedor: string) {
         const repositoryVenda = getRepository(Vendas)
-        const checkCliente = await repositoryVenda.findOne({ where: { id } })
+        const checkCliente = await repositoryVenda.findOne({ where: { vendaid: Number(id) } })
         let venda
 
         if (checkCliente) {
-
+            console.log(checkCliente.vendaid)
             venda = await repositoryVenda
                 .createQueryBuilder().update()
-                .set({ funcionario, id_cliente })
-                .where({ id: Number(id) })
+                .set({ vendavendedor: vendedor, vendaidcliente: Number(id_cliente) })
+                .where({ vendaid: Number(id) })
                 .execute()
 
         }
@@ -43,7 +43,7 @@ class ContreollerVenda {
 
         await deleteVendas.createQueryBuilder()
             .delete()
-            .where({ id: Number(id) })
+            .where({ vendaid: Number(id) })
             .execute()
 
     }
@@ -58,7 +58,7 @@ class ContreollerVenda {
 
         const estoqueRepository = await getRepository(Vendas)
 
-        const produtos = await estoqueRepository.findOne({ where: { id: Number(id) } })
+        const produtos = await estoqueRepository.findOne({ where: { vendaid: Number(id) } })
         return produtos
     }
 

@@ -5,60 +5,65 @@ export class CreateFormaItemVenda1606704553170 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'items_vendas',
+                name: 'itemsvendas',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'itvid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
+
                     },
                     {
-                        name: 'nome_produto',
+                        name: 'itvnomeproduto',
+                        type: 'varchar',
+                    },
+
+                    {
+                        name: 'itvcodigoproduto',
                         type: 'varchar',
                     },
                     {
-                        name: 'codigo_produto',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'ordem',
+                        name: 'itvordem',
                         type: 'decimal',
                     },
                     {
-                        name: 'qtdvendido',
+                        name: 'itvqtdvendido',
                         type: 'decimal',
                         precision: 10,
-                        scale: 1,
+                        scale: 3,
                     },
                     {
-                        name: 'valor_vendido',
+                        name: 'itvvalorvendido',
                         type: 'decimal',
                         precision: 10,
-                        scale: 2,
+                        scale: 4,
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                     {
-                        name: 'id_vendas',
+                        name: 'itvidvendas',
                         type: 'int',
 
                     },
                     {
-                        name: 'id_produtos',
+                        name: 'itvidprodutos',
                         type: 'int',
+                        isNullable: true,
+
 
                     },
                     {
-                        name: 'status',
+                        name: 'itvstatus',
                         type: 'decimal',
                     },
                     {
@@ -73,8 +78,8 @@ export class CreateFormaItemVenda1606704553170 implements MigrationInterface {
 
                         name: 'foreignKeyPrduto',
                         referencedTableName: 'produtos',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_produtos'],
+                        referencedColumnNames: ['produid'],
+                        columnNames: ['itvidprodutos'],
 
 
                     }
@@ -84,8 +89,8 @@ export class CreateFormaItemVenda1606704553170 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey("items_vendas", "foreignKeyVenda");
-        await queryRunner.dropForeignKey("items_vendas", "foreignKeyPrduto");
-        await queryRunner.dropTable('items_vendas')
+        await queryRunner.dropForeignKey("itemsvendas", "foreignKeyVenda");
+        await queryRunner.dropForeignKey("itemsvendas", "foreignKeyPrduto");
+        await queryRunner.dropTable('itemsvendas')
     }
 }

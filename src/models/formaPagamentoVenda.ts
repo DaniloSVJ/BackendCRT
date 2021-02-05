@@ -10,7 +10,7 @@ import {
 
 import Venda from './vendas';
 
-import FormOfPayment from './grupoProdutos';
+import FormOfPayment from './subgrupoProdutos';
 /**
  * Um para Um (OneToOne)
  * Um para Muitos (OneToMany)
@@ -19,28 +19,28 @@ import FormOfPayment from './grupoProdutos';
 @Entity('forma_pagamento_venda')
 class Forma_pagamento_venda {
     @PrimaryGeneratedColumn()
-    id: number;
+    fpvid: number;
 
     @Column()
-    id_venda: number;
+    fpvidvenda: number;
 
     @Column('decimal')
-    valor: number;
+    fpvvalor: number;
 
     @Column()
-    id_forma_pagmet: number;
+    fpvidforpag: number;
 
     @Column('decimal')
-    ordem: number;
+    fpvordem: number;
 
     @Column('boolean')
-    status: boolean;
+    fpvstatus: boolean;
 
     @Column()
-    formapagamento: string;
+    fpvformapagamento: string;
 
     @OneToOne(() => Venda)
-    @JoinColumn({ name: 'id_forma_pagmet' })
+    @JoinColumn({ name: 'fpvidforpag' })
     FormOfPayment: FormOfPayment;
 
     @CreateDateColumn()

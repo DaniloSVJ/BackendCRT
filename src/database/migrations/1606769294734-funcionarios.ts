@@ -6,31 +6,33 @@ export class funcionarios1606769294734 implements MigrationInterface {
         await queryRunner.createTable(
             new Table({
 
-                name: 'funcionario',
+                name: 'vendedor',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'venddorid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
+
                     },
                     {
-                        name: 'nome',
+                        name: 'venddornome',
                         type: 'varchar'
                     },
                     {
-                        name: 'cpf',
+                        name: 'venddorCPF',
                         type: 'varchar'
                     },
 
                     {
                         name: 'created_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
 
@@ -42,7 +44,7 @@ export class funcionarios1606769294734 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('funcionario');
+        await queryRunner.dropTable('vendedor');
     }
 
 }

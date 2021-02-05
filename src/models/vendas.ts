@@ -6,32 +6,27 @@ import {
     CreateDateColumn,
     OneToOne,
     JoinColumn,
-  } from 'typeorm';
+} from 'typeorm';
 
- // import User from './user';
+// import User from './user';
 
 import Clients from './clients'
-  /**
-   * Um para Um (OneToOne)
-   * Um para Muitos (OneToMany)
-   * Muitos para Muitos (ManyToMany)
-   */
-  @Entity('vendas')
-  class Vendas {
+/**
+ * Um para Um (OneToOne)
+ * Um para Muitos (OneToMany)
+ * Muitos para Muitos (ManyToMany)
+ */
+@Entity('vendas')
+class Vendas {
 
     @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column('uuid')
-    id_cliente: number;
+    vendaid: number;
 
     @Column()
-    funcionario: string;
+    vendaidcliente: number;
 
-    @CreateDateColumn()
-    date: Date;
-
-
+    @Column()
+    vendavendedor: string;
 
     @CreateDateColumn()
     created_at: Date;
@@ -40,5 +35,5 @@ import Clients from './clients'
     updated_at: Date;
 
 
-  }
-  export default Vendas;
+}
+export default Vendas;

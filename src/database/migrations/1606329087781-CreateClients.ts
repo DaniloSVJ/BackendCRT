@@ -7,48 +7,60 @@ export default class CreateClients1606329087781
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'clients',
+                name: 'clientes',
                 columns: [
                     {
-                        name: 'id',
+                        name: 'cliid',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
+
 
                     },
                     {
-                        name: "nome",
+                        name: "clinome",
                         type: 'varchar',
 
                     },
                     {
-                        name: 'bairro',
+                        name: "cliendereco",
+                        type: 'varchar',
+
+                    },
+                    {
+                        name: "clienumero",
+                        type: 'varchar',
+
+                    },
+                    {
+                        name: 'clibairro',
                         type: 'varchar',
                     },
                     {
-                        name: 'cep',
+                        name: 'clicep',
                         type: 'varchar'
                     },
                     {
 
-                        name: 'cidade',
+                        name: 'clicidade',
                         type: 'varchar',
 
                     },
                     {
-                        name: 'uf',
+                        name: 'cliuf',
                         type: 'varchar'
                     },
                     {
-                        name: 'telefone',
+                        name: 'clitelefone',
                         type: 'varchar'
                     },
                     {
-                        name: 'CPF',
+                        name: 'cliCPF',
                         type: 'varchar',
                     },
                     {
-                        name: 'RG',
+                        name: 'cliRG',
                         type: 'varchar'
                     },
                     {
@@ -58,12 +70,12 @@ export default class CreateClients1606329087781
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamp with time zone',
+                        type: 'timestamp',
                         default: 'now()',
                     },
 

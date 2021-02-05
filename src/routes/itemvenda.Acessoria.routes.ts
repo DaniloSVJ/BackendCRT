@@ -1,5 +1,5 @@
 import { response, Router } from "express"
-import ControllerItemVendas from '../service/ControllerItemVendaAcessoria'
+import ControllerItemVendas from '../service/Venda/ControllerItemVendaAcessoria'
 
 const ItemvendaRoutes = Router()
 
