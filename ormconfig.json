@@ -5,6 +5,8 @@
     "username": "root",
     "password": "12345678",
     "database": "crtbancoalfa",
+    "dateStrings": "DATETIME",
+    "timezone": "z",
     "entities": [
         "./src/models/*.ts"
     ],

@@ -1,5 +1,7 @@
+import { getTime } from "date-fns";
 import { query } from "express";
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { getTokenSourceMapRange } from "typescript";
 
 export class FormaPagamento1606147649112 implements MigrationInterface {
 
@@ -27,7 +29,7 @@ export class FormaPagamento1606147649112 implements MigrationInterface {
                     },
                     {
                         name: 'created_at',
-                        type: 'UTC_TIMESTAMP',
+                        type: 'datetime',
                         default: 'now()',
                     },
                     {
@@ -35,7 +37,6 @@ export class FormaPagamento1606147649112 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     },
-
                 ]
             })
         )
