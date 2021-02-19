@@ -8,29 +8,33 @@ class FormaPagamentoController {
     public async execute(nome: string): Promise<FormaPagamento> {
 
         const formaPagamento = getRepository(FormaPagamento);
-        console.log("par1")
+
         const checkNameGrup = await formaPagamento.findOne({
             where: { forpagnome: nome }
         })
-        console.log("par2")
+
         if (checkNameGrup) {
             throw new AppError('Name grupo already used')
         }
 
         let ordem = 0
-        console.log("par3")
-        const { count } = await formaPagamento.createQueryBuilder()
-            .select("Count(forpagnome)", "count")
+
+        const { max } = await formaPagamento.createQueryBuilder()
+            .select("Max(forpaordem)", "max")
             .getRawOne()
 
-        console.log("O tamanho é : " + count)
-        console.log("par4")
-        if (Number(count) === 0) {
-            ordem = 1;
-        } else if (Number(count) > 0) {
-            ordem = Number(count) + 1;
+        for (var i = 1; i <= max; i++) {
+            let verordem = await formaPagamento.findOne({
+                where: { forpaordem: i }
+
+            })
+
+            if (!verordem) {
+                ordem = i
+                console.log(i)
+            }
         }
-        console.log("par5")
+
 
         const forma = await formaPagamento.create({
             forpagnome: nome,
@@ -61,6 +65,7 @@ class FormaPagamentoController {
         return pagamento
 
     }
+
     public async delete(id: string) {
         const formaPagamento = getRepository(FormaPagamento)
 
@@ -70,11 +75,13 @@ class FormaPagamentoController {
             .execute()
 
     }
+
     public async getAll() {
 
         const formaPagamento = await getRepository(FormaPagamento)
 
         const pagamento = await formaPagamento.find()
+
         return pagamento
     }
 
