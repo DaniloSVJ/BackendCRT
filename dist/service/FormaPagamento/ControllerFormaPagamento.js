@@ -16,33 +16,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class FormaPagamentoController {
   async execute(nome) {
     const formaPagamento = (0, _typeorm.getRepository)(_formaPagamento.default);
-    console.log("par1");
     const checkNameGrup = await formaPagamento.findOne({
       where: {
         forpagnome: nome
       }
     });
-    console.log("par2");
 
     if (checkNameGrup) {
       throw new _AppErro.default('Name grupo already used');
     }
 
     let ordem = 0;
-    console.log("par3");
     const {
-      count
-    } = await formaPagamento.createQueryBuilder().select("Count(forpagnome)", "count").getRawOne();
-    console.log("O tamanho é : " + count);
-    console.log("par4");
+      max
+    } = await formaPagamento.createQueryBuilder().select("Max(forpaordem)", "max").getRawOne();
 
-    if (Number(count) === 0) {
-      ordem = 1;
-    } else if (Number(count) > 0) {
-      ordem = Number(count) + 1;
+    for (var i = 1; i <= max; i++) {
+      let verordem = await formaPagamento.findOne({
+        where: {
+          forpaordem: i
+        }
+      });
+
+      if (!verordem) {
+        ordem = i;
+        console.log(i);
+      }
     }
 
-    console.log("par5");
     const forma = await formaPagamento.create({
       forpagnome: nome,
       forpaordem: ordem
