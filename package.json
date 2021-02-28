@@ -29,7 +29,7 @@
         "eslint-plugin-import": "2.21.2",
         "express": "^4.17.1",
         "multer": "^1.4.2",
-        "ts-node-dev": "^1.0.0-pre.65"
+        "ts-node-dev": "^1.1.6"
     },
     "dependencies": {
         "-": "0.0.1",
@@ -43,6 +43,7 @@
         "date-fns": "^2.16.1",
         "express-async-errors": "^3.1.1",
         "jsonwebtoken": "^8.5.1",
+        "mysql": "^2.18.1",
         "mysql2": "^2.2.5",
         "pg": "^8.5.1",
         "reflect-metadata": "^0.1.13",
